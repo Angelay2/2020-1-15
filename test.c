@@ -1,50 +1,31 @@
 #include <stdio.h>
-#include <windows.h>
+#include <Windows.h>
 
-//// 遍历数组
-//void Print(int* p, int sz){
-//	int i = 0;
-//	for (i = 0; i < sz; i++){
-//		printf("%d\n", *(p + i));
-//	}
-//}
-//
-//int main1(){
-//	int arr[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 ,0};
-//	int* p = arr;
-//	int sz = sizeof(arr) / sizeof(arr[0]);
-//	// 一级指针p，传给函数
-//	Print(p, sz);
-//	system("pause");
-//	return 0;
-//}
-//
-//void test(int** ptr){
-//	printf("num = %d\n", **ptr);
-//}
-//int main2(){
-//	int n = 10;
-//	int* p = &n;
-//	int** pp = &p;
-//	test(pp);// num = 10
-//	test(&p);// num = 10
-//	system("pause");
-//	return 0;
-//}
+// 程序的翻译
+// 1. 环境和执行环境
+// 预处理: 选项gcc -E test.c -o test.i 预处理完成后就停下来, 预处理之后产生的结果都放在test.i文件中
+// 编译: 选项 gcc -S test.c 编译完成之后就停下来, 结果保存在test.s中
+// 汇编: gcc -c tst.c 汇编完成后就停下来, 结果保存在test.o中
 
+// 程序的运行:
+// 1. 程序必须载入内存中, 在有操作系统的环境中, 一般这个有操作系统完成, 
+// 在独立的环境中, 程序的载入必须由手工安排, 也可能是通过可执行代码置入只读内存来完成
+// 2. 程序 执行便开始, 接着便调用main函数
+// 3. 开始执行程序代码, 之歌时候程序将使用一个运行时堆栈(stack), 存储函数的局部变量和返回地址,
+// 程序同时也可以使用静态(static)内存, 存储于静态内存中的变量在程序的整个执行过程一直保留他们的值
+// 4. 终止程序, 正常终止main函数, 也哟可能是意外终止
 
-void test1(char** p){
-	printf("num = %d\n", **p);
-}
+// 2. 动态/静态链接
+// 形成的目标文件叫test.o, 依赖的库叫做lib64/libc.so.6(动态库), .o文件 和.so链接就是动态链接
+// test.o生成可执行时, test.o并不会把库中的代码拷贝到生成的mytest文件中
+// 还有一种库Lib64/libc.a(静态库),  和.a 库链接就是静态链接 
+// 最终会把使用了的C语言的所有代码从.a中拷到test中, 占用空间上大很多
+// 静态链接会把库里的代码拷贝至我们对应的目标程序中,而动态链接所有的库是所有程序共享的,
+// 只需要和我们的库产生关联, 在程序运行时将库加载至内存就可以了,  (笔记本和 话吧 网吧共享区别)
+
+// 
 int main(){
-	char c = 'b';
-	char* pc = &c;
-	char** ppc = &pc;
-	char* arr[10];
-	test1(&pc);// num = 98
-	test1(ppc);// num = 98
-	//test2(arr);  // 不能用二级指针传参  arr为指针数组 
+		
 	system("pause");
 	return 0;
-
 }
